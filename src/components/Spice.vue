@@ -15,7 +15,7 @@
         <v-stepper-content step="1">
           <v-layout row wrap>
             <v-flex xs12>
-              <span> Select a Spice</span>
+              <span class="title">Select Spice(s)</span>
             </v-flex>
             <v-flex v-for="(spice, index) in spices" :key="index" xs4>
               <v-card
@@ -190,7 +190,7 @@ export default {
   font-size: 16px;
 }
 .spice-name {
-  font-size: 14px;
+  font-size: 20px;
 }
 .left-margin {
   margin-left: 14px;
@@ -203,5 +203,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.title {
+  font-size: 24px;
 }
 </style>

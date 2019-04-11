@@ -11,7 +11,7 @@
       <v-tab-item :key="1">
         <v-card flat>
           <v-card-text>
-            hello
+            Coming Soon
           </v-card-text>
         </v-card>
       </v-tab-item>
@@ -19,7 +19,7 @@
       <v-tab-item :key="2">
         <v-card flat>
           <v-card-text>
-            dude
+            Coming Soon
           </v-card-text>
         </v-card>
       </v-tab-item>
