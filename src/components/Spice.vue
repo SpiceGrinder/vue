@@ -205,6 +205,7 @@ export default {
 
       try {
         await fetch('http://169.254.63.79:5000', {
+          mode: 'cors',
           method: 'POST',
           body: JSON.stringify({
             spices: param,
