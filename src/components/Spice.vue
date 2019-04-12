@@ -198,7 +198,7 @@ export default {
         .filter(spice => spice.selected)
         .map(spice => {
           return {
-            grinder: spice.id,
+            grinder: spice.id.toString(),
             amount: spice.value,
           }
         })
