@@ -207,12 +207,7 @@ export default {
         await fetch('http://169.254.63.79:4000/jsonrpc', {
           method: 'POST',
           body: JSON.stringify({
-            method: 'grindSpices',
-            params: {
-              spices: param,
-            },
-            jsonrpc: '2.0',
-            id: 0,
+            spices: param,
           }),
         })
 
