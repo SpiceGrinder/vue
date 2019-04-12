@@ -102,13 +102,19 @@
             </v-layout>
           </div>
 
-          <v-btn color="primary" @click="e1 = 1">
+          <v-btn color="primary" @click="grindSpice">
             Grind
           </v-btn>
           <v-btn flat @click="e1 = 1">Cancel</v-btn>
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
+    <v-snackbar v-model="snackbar" :timeout="timeout" bottom>
+      Grinding Complete
+      <v-btn color="green" flat @click="snackbar = false">
+        Close
+      </v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -117,6 +123,8 @@ export default {
   name: 'spice',
   data() {
     return {
+      snackbar: false,
+      timeout: 6000,
       totalAmount: 0,
       selectedUnit: null,
       items: ['Grams', 'Ounces'],
@@ -163,6 +171,16 @@ export default {
     }
   },
   methods: {
+    reset() {
+      this.totalAmount = 0
+      this.spices = this.spices.map(spice => {
+        return {
+          ...spice,
+          value: 0,
+          selected: false,
+        }
+      })
+    },
     toggleSpice(id) {
       this.spices = this.spices.map(spice => {
         if (spice.id === id) {
@@ -174,6 +192,36 @@ export default {
 
         return spice
       })
+    },
+    async grindSpice() {
+      const param = this.spices
+        .filter(spice => spice.selected)
+        .map(spice => {
+          return {
+            grinder: spice.id,
+            amount: spice.value,
+          }
+        })
+
+      try {
+        await fetch('http://169.254.63.79:4000/jsonrpc', {
+          method: 'POST',
+          body: JSON.stringify({
+            method: 'grindSpices',
+            params: {
+              spices: param,
+            },
+            jsonrpc: '2.0',
+            id: 0,
+          }),
+        })
+
+        this.reset()
+        this.e1 = 1
+        this.snackbar = true
+      } catch (err) {
+        console.log(err)
+      }
     },
   },
 }
