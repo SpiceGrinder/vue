@@ -21,9 +21,11 @@
             </v-card>
           </v-flex>
         </v-layout>
-        <v-btn color="primary" @click="e1 = 1" v-if="e1 == 0">
-          Next
-        </v-btn>
+        <v-layout justify-end>
+          <v-btn color="primary" @click="e1 = 1" v-if="e1 == 0">
+            Next
+          </v-btn>
+        </v-layout>
 
         <v-layout row wrap v-if="e1 == 1">
           <v-flex xs12>
@@ -95,10 +97,12 @@
           </v-layout>
         </div>
 
-        <v-btn color="primary" @click="grindSpice" v-if="e1 == 1">
-          Grind
-        </v-btn>
-        <v-btn flat @click="e1 = 0" v-if="e1 == 1">Cancel</v-btn>
+        <v-layout justify-end>
+          <v-btn color="secondary" @click="e1 = 0" v-if="e1 == 1">Cancel</v-btn>
+          <v-btn color="primary" @click="grindSpice" v-if="e1 == 1">
+            Grind
+          </v-btn>
+        </v-layout>
       </v-card-text>
     </v-card>
     <v-snackbar v-model="snackbar" :timeout="timeout" bottom>
@@ -113,6 +117,7 @@
 <script>
 export default {
   name: 'spice',
+  props: ['spices'],
   data() {
     return {
       grindByPartsFeature: false,
@@ -123,68 +128,14 @@ export default {
       items: ['Grams', 'Ounces'],
       parts: false,
       e1: 0,
-      spices: [
-        {
-          id: 0,
-          name: 'Salt',
-          value: 0,
-          selected: false,
-        },
-        {
-          id: 1,
-          name: 'Pepper',
-          value: 0,
-          selected: false,
-        },
-        {
-          id: 2,
-          name: 'Paprika',
-          value: 0,
-          selected: false,
-        },
-        {
-          id: 3,
-          name: 'Cinnamon',
-          value: 0,
-          selected: false,
-        },
-        {
-          id: 4,
-          name: 'Peppers',
-          value: 0,
-          selected: false,
-        },
-        {
-          id: 5,
-          name: 'Salt',
-          value: 0,
-          selected: false,
-        },
-      ],
     }
   },
   methods: {
     reset() {
-      this.totalAmount = 0
-      this.spices = this.spices.map(spice => {
-        return {
-          ...spice,
-          value: 0,
-          selected: false,
-        }
-      })
+      this.$emit('reset')
     },
     toggleSpice(id) {
-      this.spices = this.spices.map(spice => {
-        if (spice.id === id) {
-          return {
-            ...spice,
-            selected: !spice.selected,
-          }
-        }
-
-        return spice
-      })
+      this.$emit('toggleSpice', id)
     },
     async grindSpice() {
       const param = this.spices

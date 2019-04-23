@@ -4,7 +4,11 @@
       <v-tab v-for="(tab, index) in tabs" :key="index" ripple>{{ tab }} </v-tab>
       <v-tab-item :key="0">
         <div>
-          <spice></spice>
+          <spice
+            @reset="reset"
+            @toggleSpice="toggleSpice"
+            :spices="spices"
+          ></spice>
         </div>
       </v-tab-item>
 
@@ -13,7 +17,10 @@
       </v-tab-item>
 
       <v-tab-item :key="2">
-        <configuration @testFunc="testFunc"></configuration>
+        <configuration
+          :spices="spices"
+          @changeSpice="changeSpice"
+        ></configuration>
       </v-tab-item>
     </v-tabs>
   </v-app>
@@ -51,11 +58,79 @@ export default {
           ],
         },
       ],
+      spices: [
+        {
+          id: 0,
+          name: 'Salt',
+          value: 0,
+          selected: false,
+        },
+        {
+          id: 1,
+          name: 'Pepper',
+          value: 0,
+          selected: false,
+        },
+        {
+          id: 2,
+          name: 'Paprika',
+          value: 0,
+          selected: false,
+        },
+        {
+          id: 3,
+          name: 'Cinnamon',
+          value: 0,
+          selected: false,
+        },
+        {
+          id: 4,
+          name: 'Pepper',
+          value: 0,
+          selected: false,
+        },
+        {
+          id: 5,
+          name: 'Salt',
+          value: 0,
+          selected: false,
+        },
+      ],
     }
   },
   methods: {
-    testFunc(dude) {
-      console.log(this.history, dude)
+    changeSpice(id, value) {
+      this.spices = this.spices.map(spice => {
+        if (spice.id == id) {
+          return {
+            ...spice,
+            name: value,
+          }
+        }
+        return spice
+      })
+    },
+    reset() {
+      this.totalAmount = 0
+      this.spices = this.spices.map(spice => {
+        return {
+          ...spice,
+          value: 0,
+          selected: false,
+        }
+      })
+    },
+    toggleSpice(id) {
+      this.spices = this.spices.map(spice => {
+        if (spice.id === id) {
+          return {
+            ...spice,
+            selected: !spice.selected,
+          }
+        }
+
+        return spice
+      })
     },
   },
 }
