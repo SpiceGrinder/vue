@@ -7,19 +7,21 @@
           <spice
             @reset="reset"
             @toggleSpice="toggleSpice"
+            @fetchHistory="fetchHistory"
             :spices="spices"
           ></spice>
         </div>
       </v-tab-item>
 
       <v-tab-item :key="1">
-        <history :history="history"> </history>
+        <history :history="history" @fetchHistory="fetchHistory"> </history>
       </v-tab-item>
 
       <v-tab-item :key="2">
         <configuration
           :spices="spices"
           @changeSpice="changeSpice"
+          @refetch="fetchSpices"
         ></configuration>
       </v-tab-item>
     </v-tabs>
@@ -41,23 +43,9 @@ export default {
     return {
       active: null,
       tabs: ['Grind', 'History', 'Configuration'],
+      history: [],
       text:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      history: [
-        {
-          spices: [
-            { spice: 0, name: 'Salt', amount: 10 },
-            { spice: 1, name: 'Pepper', amount: 100 },
-          ],
-        },
-        {
-          spices: [
-            { spice: 0, name: 'Salt', amount: 8 },
-            { spice: 1, name: 'Pepper', amount: 120 },
-            { spice: 2, name: 'Coffee', amount: 23 },
-          ],
-        },
-      ],
       spices: [
         {
           id: 0,
@@ -132,6 +120,34 @@ export default {
         return spice
       })
     },
+    async fetchSpices() {
+      const response = await fetch('http://localhost:3000/spices')
+      const body = await response.json()
+      const data = body.map(item => {
+        return {
+          ...item,
+          selected: false,
+          value: 0,
+        }
+      })
+      this.spices = data
+    },
+    async fetchHistory() {
+      try {
+        const response = await fetch('http://localhost:3000/history')
+        const body = await response.json()
+        this.history = body
+      } catch (err) {
+        console.log('could not fetch history')
+      }
+    },
+  },
+  async created() {
+    try {
+      await this.fetchSpices()
+    } catch (err) {
+      console.log(err)
+    }
   },
 }
 </script>

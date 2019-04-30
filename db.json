@@ -1,0 +1,110 @@
+{
+  "spices": [
+    {
+      "id": 1,
+      "name": "Garlic Cloves"
+    },
+    {
+      "id": 2,
+      "name": "Paprika"
+    },
+    {
+      "id": 3,
+      "name": "Paprika"
+    },
+    {
+      "id": 4,
+      "name": "Salt"
+    },
+    {
+      "id": 5,
+      "name": "Garlic Cloves"
+    },
+    {
+      "id": 6,
+      "name": "Salt"
+    }
+  ],
+  "history": [
+    {
+      "id": 1,
+      "spices": [
+        {
+          "id": 1,
+          "name": "Salt",
+          "amount": 20
+        },
+        {
+          "id": 2,
+          "name": "Pepper",
+          "amount": 80
+        },
+        {
+          "id": 3,
+          "name": "Coffee Beans",
+          "amount": 22
+        }
+      ]
+    },
+    {
+      "spices": [
+        {
+          "id": 1,
+          "name": "Garlic Cloves",
+          "amount": 0
+        },
+        {
+          "id": 4,
+          "name": "Salt",
+          "amount": 0
+        },
+        {
+          "id": 5,
+          "name": "Garlic Cloves",
+          "amount": 9.2
+        }
+      ],
+      "id": 2
+    },
+    {
+      "spices": [
+        {
+          "id": 1,
+          "name": "Garlic Cloves",
+          "amount": 0
+        },
+        {
+          "id": 4,
+          "name": "Salt",
+          "amount": 0
+        },
+        {
+          "id": 5,
+          "name": "Garlic Cloves",
+          "amount": 10.1
+        }
+      ],
+      "id": 3
+    },
+    {
+      "spices": [
+        {
+          "id": 1,
+          "name": "Garlic Cloves",
+          "amount": 0
+        },
+        {
+          "id": 2,
+          "name": "Paprika",
+          "amount": 4.6
+        },
+        {
+          "id": 4,
+          "name": "Salt",
+          "amount": 0
+        }
+      ],
+      "id": 4
+    }
+  ]
+}

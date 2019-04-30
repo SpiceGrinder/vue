@@ -137,6 +137,9 @@ export default {
     toggleSpice(id) {
       this.$emit('toggleSpice', id)
     },
+    async fetchHistory() {
+      await this.$emit('fetchHistory')
+    },
     async grindSpice() {
       const param = this.spices
         .filter(spice => spice.selected)
@@ -147,17 +150,39 @@ export default {
           }
         })
 
-      try {
-        await fetch('http://169.254.63.79:5000', {
-          mode: 'cors',
-          method: 'POST',
-          body: JSON.stringify({
-            spices: param,
-          }),
+      const history = this.spices
+        .filter(spice => spice.selected)
+        .map(spice => {
+          return {
+            id: spice.id,
+            name: spice.name,
+            amount: spice.value,
+          }
         })
 
+      try {
+        // start the motors
+        //await fetch('http://169.254.63.79:5000', {
+        //  mode: 'cors',
+        //  method: 'POST',
+        //  body: JSON.stringify({
+        //    spices: param,
+        //  }),
+        //})
+
+        await fetch('http://localhost:3000/history', {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+          body: JSON.stringify({ spices: history }),
+        })
+
+        this.fetchHistory()
+
         this.reset()
-        this.e1 = 1
+        this.e1 = 0
         this.snackbar = true
       } catch (err) {
         console.log(err)

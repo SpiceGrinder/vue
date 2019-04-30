@@ -16,15 +16,14 @@
           </v-flex>
           <v-flex xs12>
             <v-layout justify-end>
-              <v-btn color="secondary">
+              <v-btn @click="onReset" color="secondary">
                 Reset
               </v-btn>
-              <v-btn color="primary">
+              <v-btn @click="onSave" color="primary">
                 Save
               </v-btn>
             </v-layout>
           </v-flex>
-          {{ spiceNames }}
         </v-layout>
       </v-card-text>
     </v-card>
@@ -39,7 +38,20 @@ export default {
     return {
       finished: false,
       spiceNames: {},
-      items: ['Salt', 'Pepper', 'Paprika', 'Cinnamon', 'Coffee'],
+      default: {},
+      changed: false,
+      items: [
+        'Salt',
+        'Pepper',
+        'Paprika',
+        'Cinnamon',
+        'Coffee',
+        'Garlic Cloves',
+        'Basil',
+        'Fennel Seed',
+        'Nutmeg',
+        'Black Peppercorns',
+      ],
     }
   },
   created() {
@@ -53,6 +65,40 @@ export default {
         obj[index] = spice.name || ''
       })
       this.spiceNames = obj
+      this.default = { ...obj }
+    },
+    refetch() {
+      this.$emit('refetch')
+    },
+    async onSave() {
+      this.default = { ...this.spiceNames }
+      try {
+        for (const [key, value] of Object.entries(this.spiceNames)) {
+          const id = parseInt(key) + 1
+          const spice = { id: id, name: value }
+          console.log(JSON.stringify(spice))
+          await fetch('http://localhost:3000/spices/' + id + '/', {
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            method: 'PUT',
+            body: `{ "id": ${id}, "name": "${value}" }`,
+          })
+          this.refetch()
+        }
+      } catch (err) {
+        console.log(err)
+        console.log('error saving the info')
+      }
+    },
+    onReset() {
+      this.spiceNames = { ...this.default }
+    },
+  },
+  watch: {
+    spices(value) {
+      this.updateSpiceNames()
     },
   },
 }

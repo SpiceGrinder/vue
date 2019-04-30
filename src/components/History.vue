@@ -38,6 +38,14 @@
 export default {
   name: 'history',
   props: ['history'],
+  methods: {
+    async fetchHistory() {
+      await this.$emit('fetchHistory')
+    },
+  },
+  async created() {
+    await this.fetchHistory()
+  },
 }
 </script>
 
