@@ -16,7 +16,9 @@
               ripple
             >
               <div class="title font-weight-regular">
-                {{ spice.name }}
+                <span v-if="spiceNames[index]">
+                  {{ spiceNames[index].name }}
+                </span>
               </div>
             </v-card>
           </v-flex>
@@ -63,7 +65,9 @@
             :key="index + 'hi'"
           >
             <v-flex xs2 class="middle">
-              <div class="subheading font-weight-regular">{{ spice.name }}</div>
+              <div class="subheading font-weight-regular">
+                {{ spiceNames[index].name }}
+              </div>
             </v-flex>
             <v-flex xs10>
               <v-slider
@@ -83,7 +87,9 @@
             :key="index + 'hi'"
           >
             <v-flex xs2 class="middle">
-              <div class="subheading font-weight-regular">{{ spice.name }}</div>
+              <div class="subheading font-weight-regular">
+                {{ spiceNames[index].name }}
+              </div>
             </v-flex>
             <v-flex xs10>
               <v-slider
@@ -117,9 +123,41 @@
 <script>
 export default {
   name: 'spice',
-  props: ['spices'],
+  props: ['spiceNames'],
   data() {
     return {
+      spices: [
+        {
+          id: 0,
+          value: 0,
+          selected: false,
+        },
+        {
+          id: 1,
+          value: 0,
+          selected: false,
+        },
+        {
+          id: 2,
+          value: 0,
+          selected: false,
+        },
+        {
+          id: 3,
+          value: 0,
+          selected: false,
+        },
+        {
+          id: 4,
+          value: 0,
+          selected: false,
+        },
+        {
+          id: 5,
+          value: 0,
+          selected: false,
+        },
+      ],
       grindByPartsFeature: false,
       snackbar: false,
       timeout: 6000,
@@ -132,10 +170,26 @@ export default {
   },
   methods: {
     reset() {
-      this.$emit('reset')
+      this.totalAmount = 0
+      this.spices = this.spices.map(spice => {
+        return {
+          ...spice,
+          value: 0,
+          selected: false,
+        }
+      })
     },
     toggleSpice(id) {
-      this.$emit('toggleSpice', id)
+      this.spices = this.spices.map(spice => {
+        if (spice.id === id) {
+          return {
+            ...spice,
+            selected: !spice.selected,
+          }
+        }
+
+        return spice
+      })
     },
     async fetchHistory() {
       await this.$emit('fetchHistory')
@@ -156,14 +210,13 @@ export default {
 
       const history = this.spices
         .filter(spice => spice.selected)
-        .map(spice => {
+        .map((spice, index) => {
           let tot = spice.value
           if (this.selectedUnit == 'Ounces') {
             tot = tot * 28.34952
           }
           return {
-            id: spice.id,
-            name: spice.name,
+            name: this.spiceNames[index].name,
             amount: tot,
           }
         })

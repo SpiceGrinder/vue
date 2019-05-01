@@ -5,10 +5,8 @@
       <v-tab-item :key="0">
         <div>
           <spice
-            @reset="reset"
-            @toggleSpice="toggleSpice"
             @fetchHistory="fetchHistory"
-            :spices.sync="spices"
+            :spiceNames.sync="spiceNames"
           ></spice>
         </div>
       </v-tab-item>
@@ -20,8 +18,7 @@
 
       <v-tab-item :key="2">
         <configuration
-          :spices="spices"
-          @changeSpice="changeSpice"
+          :spices="spiceNames"
           @refetch="fetchSpices"
         ></configuration>
       </v-tab-item>
@@ -47,80 +44,10 @@ export default {
       history: [],
       text:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      spices: [
-        {
-          id: 0,
-          name: 'Salt',
-          value: 0,
-          selected: false,
-        },
-        {
-          id: 1,
-          name: 'Pepper',
-          value: 0,
-          selected: false,
-        },
-        {
-          id: 2,
-          name: 'Paprika',
-          value: 0,
-          selected: false,
-        },
-        {
-          id: 3,
-          name: 'Cinnamon',
-          value: 0,
-          selected: false,
-        },
-        {
-          id: 4,
-          name: 'Pepper',
-          value: 0,
-          selected: false,
-        },
-        {
-          id: 5,
-          name: 'Salt',
-          value: 0,
-          selected: false,
-        },
-      ],
+      spiceNames: [],
     }
   },
   methods: {
-    changeSpice(id, value) {
-      this.spices = this.spices.map(spice => {
-        if (spice.id == id) {
-          return {
-            ...spice,
-            name: value,
-          }
-        }
-        return spice
-      })
-    },
-    reset() {
-      this.totalAmount = 0
-      this.spices = this.spices.map(spice => {
-        return {
-          ...spice,
-          value: 0,
-          selected: false,
-        }
-      })
-    },
-    toggleSpice(id) {
-      this.spices = this.spices.map(spice => {
-        if (spice.id === id) {
-          return {
-            ...spice,
-            selected: !spice.selected,
-          }
-        }
-
-        return spice
-      })
-    },
     async fetchSpices() {
       const response = await fetch('http://localhost:3000/spices')
       const body = await response.json()
@@ -131,13 +58,13 @@ export default {
           value: 0,
         }
       })
-      this.spices = data
+      this.spiceNames = data
     },
     async fetchHistory() {
       try {
         const response = await fetch('http://localhost:3000/history')
         const body = await response.json()
-        this.history = body
+        this.history = body.reverse()
       } catch (err) {
         console.log('could not fetch history')
       }

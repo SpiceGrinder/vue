@@ -2,7 +2,7 @@
   "spices": [
     {
       "id": 1,
-      "name": "Garlic Cloves"
+      "name": "Black Peppercorns"
     },
     {
       "id": 2,
@@ -215,6 +215,46 @@
         }
       ],
       "id": 14
+    },
+    {
+      "spices": [
+        {
+          "id": 0,
+          "amount": 5.5
+        }
+      ],
+      "id": 15
+    },
+    {
+      "spices": [
+        {
+          "name": "Garlic Cloves",
+          "amount": 6.2
+        },
+        {
+          "name": "Paprika",
+          "amount": 9.8
+        }
+      ],
+      "id": 16
+    },
+    {
+      "spices": [
+        {
+          "name": "Garlic Cloves",
+          "amount": 10.8
+        }
+      ],
+      "id": 17
+    },
+    {
+      "spices": [
+        {
+          "name": "Black Peppercorns",
+          "amount": 221.12625599999998
+        }
+      ],
+      "id": 18
     }
   ]
 }

@@ -15,10 +15,11 @@
             >
               <v-flex xs12>
                 <v-layout row span>
-                  {{ index + 1 }}.
                   <v-layout row wrap>
-                    <v-flex xs2 v-for="spice in x.spices"
-                      >{{ spice.name }} {{ spice.amount }}g</v-flex
+                    <span> {{ index + 1 }}. </span>
+                    <span v-for="spice in x.spices" class="column"
+                      >{{ spice.name }}
+                      {{ spice.amount | decimalPoints }}g</span
                     >
                   </v-layout>
                 </v-layout>
@@ -46,11 +47,22 @@ export default {
   async created() {
     await this.fetchHistory()
   },
+  filters: {
+    decimalPoints: function(value) {
+      if (value == null) {
+        return
+      }
+      return value.toFixed(2)
+    },
+  },
 }
 </script>
 
 <style scoped>
 .padding-content {
   padding: 10px;
+}
+.column {
+  padding-left: 16px;
 }
 </style>
