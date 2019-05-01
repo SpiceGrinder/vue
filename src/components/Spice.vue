@@ -221,18 +221,17 @@ export default {
           }
         })
 
-      console.log(this.spices)
-
       try {
         // start the motors
-        //await fetch('http://169.254.63.79:5000', {
-        //  mode: 'cors',
-        //  method: 'POST',
-        //  body: JSON.stringify({
-        //    spices: param,
-        //  }),
-        //})
+        await fetch('http://localhost:5000', {
+          mode: 'cors',
+          method: 'POST',
+          body: JSON.stringify({
+            spices: param,
+          }),
+        })
 
+        // update the db
         await fetch('http://localhost:3000/history', {
           headers: {
             Accept: 'application/json',
