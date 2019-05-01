@@ -124,7 +124,7 @@ export default {
       snackbar: false,
       timeout: 6000,
       totalAmount: 0,
-      selectedUnit: null,
+      selectedUnit: 'Grams',
       items: ['Grams', 'Ounces'],
       parts: false,
       e1: 0,
@@ -144,21 +144,31 @@ export default {
       const param = this.spices
         .filter(spice => spice.selected)
         .map(spice => {
+          let tot = spice.value
+          if (this.selectedUnit == 'Ounces') {
+            tot = tot * 28.34952
+          }
           return {
             grinder: spice.id.toString(),
-            amount: spice.value,
+            amount: tot,
           }
         })
 
       const history = this.spices
         .filter(spice => spice.selected)
         .map(spice => {
+          let tot = spice.value
+          if (this.selectedUnit == 'Ounces') {
+            tot = tot * 28.34952
+          }
           return {
             id: spice.id,
             name: spice.name,
-            amount: spice.value,
+            amount: tot,
           }
         })
+
+      console.log(this.spices)
 
       try {
         // start the motors

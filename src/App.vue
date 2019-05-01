@@ -8,13 +8,14 @@
             @reset="reset"
             @toggleSpice="toggleSpice"
             @fetchHistory="fetchHistory"
-            :spices="spices"
+            :spices.sync="spices"
           ></spice>
         </div>
       </v-tab-item>
 
       <v-tab-item :key="1">
-        <history :history="history" @fetchHistory="fetchHistory"> </history>
+        <history :history.sync="history" @fetchHistory="fetchHistory">
+        </history>
       </v-tab-item>
 
       <v-tab-item :key="2">
