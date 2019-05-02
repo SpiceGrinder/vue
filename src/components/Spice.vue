@@ -12,6 +12,7 @@
               height="100px"
               @click="toggleSpice(spice.id)"
               :color="spice.selected ? 'accent' : undefined"
+              :disabled="spice.disabled"
               flat
               ripple
             >
@@ -136,31 +137,37 @@ export default {
           id: 0,
           value: 0,
           selected: false,
+          disabled: false,
         },
         {
           id: 1,
           value: 0,
           selected: false,
+          disabled: true,
         },
         {
           id: 2,
           value: 0,
           selected: false,
+          disabled: false,
         },
         {
           id: 3,
           value: 0,
           selected: false,
+          disabled: false,
         },
         {
           id: 4,
           value: 0,
           selected: false,
+          disabled: false,
         },
         {
           id: 5,
           value: 0,
           selected: false,
+          disabled: false,
         },
       ],
       loading: false,
@@ -187,7 +194,7 @@ export default {
     },
     toggleSpice(id) {
       this.spices = this.spices.map(spice => {
-        if (spice.id === id) {
+        if (spice.id === id && !spice.disabled) {
           return {
             ...spice,
             selected: !spice.selected,
