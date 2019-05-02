@@ -105,7 +105,12 @@
 
         <v-layout justify-end>
           <v-btn color="secondary" @click="e1 = 0" v-if="e1 == 1">Cancel</v-btn>
-          <v-btn color="primary" @click="grindSpice" v-if="e1 == 1">
+          <v-btn
+            color="primary"
+            :loading="loading"
+            @click="grindSpice"
+            v-if="e1 == 1"
+          >
             Grind
           </v-btn>
         </v-layout>
@@ -158,6 +163,7 @@ export default {
           selected: false,
         },
       ],
+      loading: false,
       grindByPartsFeature: false,
       snackbar: false,
       timeout: 6000,
@@ -195,6 +201,7 @@ export default {
       await this.$emit('fetchHistory')
     },
     async grindSpice() {
+      this.loading = true
       const param = this.spices
         .filter(spice => spice.selected)
         .map(spice => {
@@ -249,6 +256,8 @@ export default {
       } catch (err) {
         console.log(err)
       }
+
+      this.loading = false
     },
   },
 }
