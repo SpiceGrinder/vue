@@ -104,7 +104,7 @@
         </div>
 
         <v-layout justify-end>
-          <v-btn color="secondary" @click="e1 = 0" v-if="e1 == 1">Cancel</v-btn>
+          <v-btn color="secondary" @click="e1 = 0" v-if="e1 == 1">Back</v-btn>
           <v-btn
             color="primary"
             :loading="loading"
