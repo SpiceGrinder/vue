@@ -51,6 +51,10 @@ export default {
         'Fennel Seed',
         'Nutmeg',
         'Black Peppercorns',
+        'Parsely',
+        'Rosemary',
+        'Garlic Pepper',
+        'Italian Herb',
       ],
     }
   },
