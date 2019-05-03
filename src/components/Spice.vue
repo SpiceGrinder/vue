@@ -67,7 +67,7 @@
           >
             <v-flex xs2 class="middle">
               <div class="subheading font-weight-regular">
-                {{ spiceNames[index].name }}
+                {{ spiceNames[spice.id].name }}
               </div>
             </v-flex>
             <v-flex xs10>
@@ -89,7 +89,7 @@
           >
             <v-flex xs2 class="middle">
               <div class="subheading font-weight-regular">
-                {{ spiceNames[index].name }}
+                {{ spiceNames[spice.id].name }}
               </div>
             </v-flex>
             <v-flex xs10>
@@ -143,7 +143,7 @@ export default {
           id: 1,
           value: 0,
           selected: false,
-          disabled: true,
+          disabled: false,
         },
         {
           id: 2,
@@ -167,7 +167,7 @@ export default {
           id: 5,
           value: 0,
           selected: false,
-          disabled: false,
+          disabled: true,
         },
       ],
       loading: false,
