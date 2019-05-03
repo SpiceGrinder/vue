@@ -54,7 +54,7 @@
             <v-slider
               v-model="totalAmount"
               step=".1"
-              max="100"
+              max="5"
               thumb-size="40"
               thumb-label="always"
             ></v-slider>
@@ -74,7 +74,7 @@
               <v-slider
                 v-model="spices[spice.id].value"
                 step="1"
-                max="100"
+                max="5"
                 thumb-size="40"
                 thumb-label="always"
               ></v-slider>
@@ -96,7 +96,7 @@
               <v-slider
                 v-model="spices[spice.id].value"
                 step=".1"
-                max="20"
+                max="5"
                 thumb-size="40"
                 thumb-label="always"
               ></v-slider>
